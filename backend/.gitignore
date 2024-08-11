@@ -1,0 +1,4 @@
+db.sqlite3
+base/__pycache__/*
+account/__pycache__/*
+account/migrations/*

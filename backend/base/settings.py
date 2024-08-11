@@ -39,11 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #Apps
-    'account'
+    'account',
 
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist', #blacklist after refresh
-    'api',
     'corsheaders',
 ]
 
@@ -81,12 +80,25 @@ WSGI_APPLICATION = 'base.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'synchro_db',
+        'USER': 'synchro_user',
+        'PASSWORD': 'synchrodb',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
+
 
 
 # Password validation

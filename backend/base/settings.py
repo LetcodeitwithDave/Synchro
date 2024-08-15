@@ -54,7 +54,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+     #cors
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True  # Allow requests from any origin
+
 
 ROOT_URLCONF = 'base.urls'
 
@@ -90,15 +96,16 @@ WSGI_APPLICATION = 'base.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'synchro_db',
         'USER': 'synchro_user',
-        'PASSWORD': 'synchrodb',
+        'PASSWORD': 'synchro_password',
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '3306',
     }
 }
 
+AUTH_USER_MODEL = 'account.CustomUserRegistration'
 
 
 # Password validation

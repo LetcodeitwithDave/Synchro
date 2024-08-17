@@ -5,6 +5,8 @@ from .serializers import CustomUserSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
+from .models import CustomUserRegistration
+
 
 
 # Create your views here.
@@ -22,13 +24,12 @@ def Register(request):
     return Response({'error' :  serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
-
+#prep work
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
 def Account(request):
+    list_of_account = CustomUserRegistration.objects.all()
+    serializer =CustomUserSerializer(list_of_account, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK) 
 
-    context  = {
-        "username": request.user.username,
-        "email" : request.user.email,
-    }
-    return Response(context) 
+
+    

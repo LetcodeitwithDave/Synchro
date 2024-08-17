@@ -20,4 +20,3 @@ class CustomUserSerializer(serializers.ModelSerializer):
         user  =  CustomUserRegistration.objects.create_user(**validated_data)
         return user
 
-

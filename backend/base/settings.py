@@ -1,10 +1,11 @@
 
 
-from pathlib import Path
-import os
 from datetime import timedelta
-
+from pathlib import Path
 from dotenv import load_dotenv 
+import os
+import sys
+
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -12,6 +13,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 
 DEBUG = True
+sys.dont_write_bytecode = True
 
 ALLOWED_HOSTS = []
 
@@ -28,6 +30,7 @@ INSTALLED_APPS = [
 
     #Apps
     'account',
+    'workspace',
 
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist', #blacklist after refresh
@@ -58,7 +61,7 @@ REST_FRAMEWORK = {
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=40),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=90),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,

@@ -123,7 +123,7 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = 'account.CustomUserRegistration'
+AUTH_USER_MODEL = 'account.CustomUser'
 
 
 # Password validation

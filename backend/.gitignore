@@ -3,4 +3,7 @@ base/__pycache__/*
 account/__pycache__/*
 account/migrations/*
 
+workspace/migrations/*
+workspace/__pycache__/*
+
 .env

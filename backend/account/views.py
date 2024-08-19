@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from django.http import HttpResponse
-from .serializers import CustomUserSerializer
+from .serializers import CustomUserSerializer, ProfileSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
@@ -10,9 +10,6 @@ from .models import CustomUser
 
 
 # Create your views here.
-
-def test (request):
-    return HttpResponse('<h1> hello bro </h1>')
 
 @api_view(['POST'])
 def Register(request):
@@ -31,5 +28,26 @@ def Account(request):
     serializer =CustomUserSerializer(list_of_account, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK) 
 
+
+@api_view(['GET', 'PUT'])
+@permission_classes([IsAuthenticated])
+def ProfileView(request):
+    user = request.user
+    
+    if request.method == 'GET':
+        serializer =ProfileSerializer(user)
+        return Response({'auth_user': serializer.data}, status=status.HTTP_200_OK)
+       
+
+    elif request.method == 'PUT':
+        serializer =ProfileSerializer(user, data = request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'success': serializer.data}, status=status.HTTP_200_OK)
+        
+        return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+        
 
     

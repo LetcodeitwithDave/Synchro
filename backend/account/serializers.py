@@ -26,6 +26,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ['email', 'username', 'fullname', 'profile_picture', 'bio',]
 
     def update(self, instance, validated_data):
+        instance.email = validated_data.get('email', instance.email)
         instance.username = validated_data.get('username', instance.username)
         instance.fullname = validated_data.get('fullname', instance.fullname)
         instance.bio = validated_data.get('bio', instance.bio)
@@ -38,4 +39,4 @@ class ProfileSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
-        return super().update(instance, validated_data)
+        return super().update(instance, zzvalidated_data)

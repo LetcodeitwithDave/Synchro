@@ -11,6 +11,7 @@ urlpatterns = [
 
     path('signup/', views.Register, name='signup page'),
     path('accountdetails/', views.Account, name='accountdetails'),
-    path('test/', views.test, name='test this thing')
+    path('profile/', views.ProfileView, name='profile')
+    
         
 ]

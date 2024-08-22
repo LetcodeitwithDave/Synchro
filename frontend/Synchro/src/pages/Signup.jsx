@@ -1,9 +1,33 @@
 import React, { useContext } from "react";
 
-import { AuthContext, handleSignUp, useAuth } from "../utils/auth";
+import { AuthContext } from "../utils/auth";
 
 function Signup() {
   const { userDetails, setUserDetails } = useContext(AuthContext);
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:8000/api/signup/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userDetails),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("User signed up successfully", data);
+        navigate("/");
+      } else {
+        const errorData = await response.json();
+        console.log(`Signup failed: ${errorData.error}`);
+      }
+    } catch (error) {
+      console.log("Error:", error.response);
+    }
+  };
 
   const handelInputChange = (e) => {
     setUserDetails({
@@ -52,12 +76,12 @@ function Signup() {
               />
               <input
                 className=" border border-gray-400 w-full hover:ring-offset-black hover:outline-none hover:ring-0 hover:ring-white hover:ring-offset-1  focus:ring-offset-blue-800 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-1 h-[60px] rounded-md text-left px-4"
-                id="lastname"
+                id="username"
                 type="text"
                 required
                 value={userDetails.username}
                 onChange={handelInputChange}
-                name="lastname"
+                name="username"
                 placeholder="Enter username*"
               />
             </div>

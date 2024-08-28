@@ -7,7 +7,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model =  CustomUser
-        fields  = ['id', 'email', 'username', 'password', 'password2', 'fullname']
+        fields  = ['email', 'username', 'password', 'password2', 'fullname']
 
     def validate(self, data):
         if data['password'] != data['password2']:

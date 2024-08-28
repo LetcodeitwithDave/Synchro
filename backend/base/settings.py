@@ -30,7 +30,8 @@ INSTALLED_APPS = [
 
     #Apps
     'account',
-    # 'workspace',
+    'documents',
+    'dashboard',
 
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist', #blacklist after refresh

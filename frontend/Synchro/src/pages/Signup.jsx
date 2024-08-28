@@ -35,7 +35,12 @@ function Signup() {
         navigate("/");
       } else {
         const errorData = await response.json();
-        toast.error(`Signup failed: ${errorData}`);
+
+        for (const [key, value] of Object.entries(errorData)) {
+          toast.error(`${key}: ${value.join(", ")}`);
+        }
+
+        console.log("error message -", errorData);
         console.log(`Signup failed: ${errorData}`);
       }
     } catch (error) {

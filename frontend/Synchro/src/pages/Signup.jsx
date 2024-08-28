@@ -1,9 +1,17 @@
 import React, { useContext } from "react";
-
-import { AuthContext } from "../utils/auth";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
-  const { userDetails, setUserDetails } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [userDetails, setUserDetails] = useState({
+    fullname: "",
+    username: "",
+    email: "",
+    password: "",
+    password2: "",
+  });
+  console.log("userDetail - > ", userDetails);
 
   const handleSignUp = async (e) => {
     e.preventDefault();

@@ -2,6 +2,9 @@ import React, { useContext } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function Signup() {
   const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState({
@@ -26,11 +29,14 @@ function Signup() {
 
       if (response.ok) {
         const data = await response.json();
+
+        toast.success("Account created successful!");
         console.log("User signed up successfully", data);
         navigate("/");
       } else {
         const errorData = await response.json();
-        console.log(`Signup failed: ${errorData.error}`);
+        toast.error(`Signup failed: ${errorData}`);
+        console.log(`Signup failed: ${errorData}`);
       }
     } catch (error) {
       console.log("Error:", error.response);
@@ -46,6 +52,8 @@ function Signup() {
 
   return (
     <div>
+      <ToastContainer />
+
       <form onSubmit={handleSignUp}>
         <div className=" mt-8  md:mx-[480px] flex flex-col items-center justify-center">
           {/* lock icon */}

@@ -17,8 +17,8 @@ def Register(request):
     if serializer.is_valid():
         serializer.save()
         return Response({'success' :  'Account created successfully'}, status=status.HTTP_201_CREATED)
-    
-    return Response({'error' :  serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+    print('thi is the error ->', serializer.errors)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 #prep work

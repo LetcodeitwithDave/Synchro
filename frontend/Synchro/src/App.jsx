@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import Test from "./pages/Test";
 
-import { AuthProvider } from "./utils/auth";
+import { AuthProvider } from "./utils/authcontext";
 import { Signin, Signup } from "./pages";
 import Dummy from "./pages/Dummy";
 

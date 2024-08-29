@@ -32,7 +32,7 @@ function Signup() {
 
         toast.success("Account created successful!");
         console.log("User signed up successfully", data);
-        navigate("/");
+        navigate("/login");
       } else {
         const errorData = await response.json();
 

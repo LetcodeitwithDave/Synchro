@@ -1,11 +1,14 @@
 import React, { createContext, useContext, useState } from "react";
 
-const AuthContext = createContext();
-const useAuth = () => useContext(AuthContext);
+export const AuthContext = createContext();
+export const useAuth = () => useContext(AuthContext);
 
-const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState();
-
+export const AuthProvider = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    localStorage.getItem("authtoken")
+      ? JSON.parse(localStorage.getItem("authtoken"))
+      : null
+  );
   return (
     <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
       {children}

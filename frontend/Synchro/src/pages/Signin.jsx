@@ -1,57 +1,22 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useAuth, AuthContext } from "../utils/authcontext";
+import { AuthContext } from "../utils/authcontext";
 
 function Signin() {
-  const { setIsAuthenticated } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
 
-  const success = (data) => {
-    toast.success("Login successful!");
-    localStorage.setItem("authtoken", JSON.stringify(data));
-
-    setIsAuthenticated(data);
-  };
   const [userDetail, setUserDetail] = useState({
     email: "",
     password: "",
   });
-  console.log("userDetail - > ", userDetail);
-  const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:8000/api/login/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userDetail),
-      });
-
-      // if (!response.ok) {
-      //   throw new Error(data.msg || "something went wrong");
-      // }
-      if (response.ok) {
-        const data = await response.json();
-        success(data);
-        navigate("/");
-      } else {
-        const errorData = await response.json();
-
-        for (const [key, value] of Object.entries(errorData)) {
-          toast.error(`${key}: ${value.join(", ")}`);
-        }
-      }
-    } catch (error) {
-      toast.error("An error occurred. Please try again.");
-      console.log("Error:", error.response);
-    }
+    login(userDetail);
   };
+
   const handelInputChange = (e) => {
     setUserDetail({
       ...userDetail,
@@ -65,10 +30,6 @@ function Signin() {
         <div className=" mt-8  md:mx-[480px] flex flex-col items-center justify-center">
           {/* lock icon */}
           <div className=" border rounded-full bg-buttonBackground flex justify-center w-12 h-12 font-robotoRegular">
-            {/* <FontAwesomeIcon
-              className=" text-white mt-auto mb-auto text-xl items-center"
-              icon="fa-solid fa-lock"
-            /> */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"

@@ -57,8 +57,6 @@ function Signup() {
 
   return (
     <div>
-      <ToastContainer />
-
       <form onSubmit={handleSignUp}>
         <div className=" mt-8  md:mx-[480px] flex flex-col items-center justify-center">
           {/* lock icon */}

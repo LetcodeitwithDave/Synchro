@@ -10,7 +10,6 @@ function Dummy() {
       <button onClick={notify} className="bg-red-400">
         click me
       </button>
-      <ToastContainer />
     </div>
   );
 }

@@ -8,8 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
+    <Router>
+      <AuthProvider>
         <ToastContainer /> {/* Place it here so it’s available globally */}
         <Routes>
           <Route element={<Signup />} path="/register" />
@@ -17,8 +17,8 @@ function App() {
           <Route element={<Test />} path="/test" />
           <Route element={<Dummy />} path="/" />
         </Routes>
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Router>
   );
 }
 

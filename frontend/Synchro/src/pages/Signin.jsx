@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useContext } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AuthContext } from "../utils/authcontext";
+import { AuthContext } from "../context/authcontext";
 
 function Signin() {
   const { login } = useContext(AuthContext);

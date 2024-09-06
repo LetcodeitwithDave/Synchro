@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
 
   const navigate = useNavigate();
 
+  // login
   const login = async (userDetail) => {
     try {
       const response = await fetch("http://localhost:8000/api/login/", {
@@ -29,7 +30,7 @@ export const AuthProvider = ({ children }) => {
         toast.success("Login successful!");
         localStorage.setItem("authtoken", JSON.stringify(data));
         setIsAuthenticated(data);
-        navigate("/");
+        navigate("/home");
       } else {
         const errorData = await response.json();
         for (const [key, value] of Object.entries(errorData)) {

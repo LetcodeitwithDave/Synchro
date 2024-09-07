@@ -1,8 +1,12 @@
-import { Navlinks } from "../constants";
+import { links } from "../constants";
+
+import { Link, useLocation } from "react-router-dom";
 
 export default function Sidebar() {
+  const location = useLocation();
+
   return (
-    <div className=" bg-sidebarBg  max-w-xs min-h-screen   pt-8">
+    <div className=" bg-sidebarBg  max-w-md px-6 min-h-screen   pt-8">
       <div className=" mx-8">
         <div className=" flex flex-row gap-2 items-center">
           <div>
@@ -26,12 +30,20 @@ export default function Sidebar() {
 
           <h1 className=" font-rubikSemiBold text-xl text-gray-900">Synchro</h1>
         </div>
-        {Navlinks.map((items) => (
+        {links.map((items) => (
           <div
-            className="  mt-8 font-rubikRegalar  text-md text-gray-700 "
+            className="  mt-8 font-rubikRegalar  text-md text-gray-700 hover:text-secondaryColor"
             key={items.label}
           >
-            <a href={items.href}>{items.label}</a>
+            <a href={items.href}>
+              <p
+                className={`${
+                  location.pathname == items.href ? "text-secondaryColor" : ""
+                } `}
+              >
+                {items.label}
+              </p>
+            </a>
           </div>
         ))}
       </div>

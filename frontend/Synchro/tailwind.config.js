@@ -7,6 +7,7 @@ export default {
   theme: {
     fontFamily: {
       rubikRegalar:  ['Rubik Regular', 'sans-serif'],
+      rubikSemiBold:  ['Rubik SemiBold', 'sans-serif'],
       
     },
     extend: {

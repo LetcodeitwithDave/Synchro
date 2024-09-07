@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Test from "./pages/Test";
-import { AuthProvider } from "./utils/authcontext";
+import { AuthProvider } from "./context/authcontext";
 import { Signin, Signup } from "./pages";
 import Dummy from "./pages/Dummy";
+import Dashboard from "./pages/Dashboard";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -14,8 +14,8 @@ function App() {
         <Routes>
           <Route element={<Signup />} path="/register" />
           <Route element={<Signin />} path="/login" />
-          <Route element={<Test />} path="/test" />
           <Route element={<Dummy />} path="/" />
+          <Route element={<Dashboard />} path="/home" />
         </Routes>
       </AuthProvider>
     </Router>

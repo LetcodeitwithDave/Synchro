@@ -24,7 +24,7 @@ export default function Sidebar() {
             </svg>
           </div>
 
-          <h1 className=" font-rubikRegalar text-xl text-gray-900">Synchro</h1>
+          <h1 className=" font-rubikSemiBold text-xl text-gray-900">Synchro</h1>
         </div>
         {Navlinks.map((items) => (
           <div

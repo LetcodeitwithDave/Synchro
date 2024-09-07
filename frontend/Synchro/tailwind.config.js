@@ -26,7 +26,8 @@ export default {
         customColor1: '#007BFF',  // Custom color (lightblue)
       },
       colors: {
-        sidebarBg: 	'#f6f6f6'
+        sidebarBg: 	'#f6f6f6',
+        secondaryColor: '#005b96',
       },
 
       textDecorationColor: {

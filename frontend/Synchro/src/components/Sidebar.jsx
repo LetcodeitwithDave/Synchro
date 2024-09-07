@@ -1,4 +1,4 @@
-import { links } from "../constants";
+import { Navlinks } from "../constants";
 
 import { Link, useLocation } from "react-router-dom";
 
@@ -30,7 +30,7 @@ export default function Sidebar() {
 
           <h1 className=" font-rubikSemiBold text-xl text-gray-900">Synchro</h1>
         </div>
-        {links.map((items) => (
+        {Navlinks.map((items) => (
           <div
             className="  mt-8 font-rubikRegalar  text-md text-gray-700 hover:text-secondaryColor"
             key={items.label}

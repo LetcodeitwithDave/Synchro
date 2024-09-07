@@ -9,3 +9,10 @@
     font-weight: 400;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'Rubik SemiBold';
+    src: url('../public/fonts/Rubik/Rubik-SemiBold.ttf') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}

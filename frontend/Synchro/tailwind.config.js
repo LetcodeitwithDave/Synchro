@@ -6,13 +6,8 @@ export default {
   ],
   theme: {
     fontFamily: {
-      robotoRegular: ['Roboto Regular', 'sans-serif'],
-      robotoMedium: ['Roboto Medium', 'sans-serif'],
-      robotoBold: ['Roboto Bold', 'sans-serif'],
-      montserratRegular: ['Montserrat Regular', 'sans-serif'],
-      montserratBold: ['Montserrat Bold', 'sans-serif'],
-      montserratSemibold: ['Montserrat SemiBold', 'sans-serif'],
-
+      rubikRegalar:  ['Rubik Regular', 'sans-serif'],
+      
     },
     extend: {
 
@@ -31,13 +26,7 @@ export default {
         customColor1: '#007BFF',  // Custom color (lightblue)
       },
       colors: {
-        test :  '#FAFAFB',
-        pageBackground : '#F8F9FA',
-        heroBackground: '#F2F2F2',
-        textColor: '#333333',
-        subheading: '#666666',
-        buttonBackground: '#007BFF',
-        OfferSectionBackground: '#EFEFEF',
+        sidebarBg: 	'#f6f6f6'
       },
 
       textDecorationColor: {

@@ -1,9 +1,9 @@
-from  .models import FileUpload
+from  .models import Document
 from rest_framework import serializers
 
 
-class FileUploadSerializer(serializers.ModelSerializer):
+class DocumentSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = FileUpload
-        fields = ['title', 'description', 'tags', 'file']
+        model = Document
+        fields = '__all__'

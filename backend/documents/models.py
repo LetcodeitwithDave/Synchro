@@ -17,8 +17,14 @@ class Document(models.Model):
     uploader = models.ForeignKey(CustomUser, null=True , on_delete=models.CASCADE, related_name='documents')
     last_updated = models.DateTimeField( null=True , auto_now_add=True)
     upload_date = models.DateTimeField( null=True, auto_now_add=True)
-    category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, related_name = 'category')
     
+    def get_absolute_url(self):
+        """ Return the full url for the file """
+        return self.file.url
+    
+
+
     def __str__(self) -> str:
         return self.title
 

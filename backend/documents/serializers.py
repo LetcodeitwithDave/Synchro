@@ -20,14 +20,17 @@ class DocumentSerializer(serializers.ModelSerializer):
 
 
 class DocumentSummarySerializer(serializers.ModelSerializer):
-    tags = TagSerializer(many=True)
-    category = CategorySerializer(many=True)
-    file = serializers.SerializerMethodField()
+    # tags = TagSerializer(many=True)
+    # category = CategorySerializer(many=True)
+    file_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Document
-        fields = ['title', 'description', 'tags','category' ,'file']
+        fields = ['title', 'description', 'tags','category' ,'file_url']
 
     
-    def get_file(self, obj):
-        return self.context['request'].build_absolute_uri(obj.get_absolute_url())
+    def get_file_url(self, obj):
+        request = self.context.get('request')
+        if request is not None:
+            return request.build_absolute_uri(obj.get_absolute_url())
+        return obj.get_absolute_url()

@@ -35,7 +35,7 @@ export default function Sidebar() {
             className="  mt-8 font-rubikRegalar  text-md text-gray-700 hover:text-secondaryColor"
             key={items.label}
           >
-            <a href={items.href}>
+            {/* <a href={items.href}>
               <p
                 className={`${
                   location.pathname == items.href ? "text-secondaryColor" : ""
@@ -43,7 +43,15 @@ export default function Sidebar() {
               >
                 {items.label}
               </p>
-            </a>
+            </a> */}
+            <Link
+              to={items.href}
+              className={`${
+                location.pathname == items.href ? "text-secondaryColor" : ""
+              } `}
+            >
+              {items.label}
+            </Link>
           </div>
         ))}
       </div>

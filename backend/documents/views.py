@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .serializers import DocumentSerializer
+from .serializers import DocumentSerializer , DocumentSummarySerializer
 from .models import Document
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -29,21 +29,21 @@ def mydocuments(request):
         
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def document_summary (request):
-    # total_document =  Document.objects.count()
-
-
-    # data  = {
-    #     'total_document' : DocumentSerializer(total_document).data
-    # }
-    # return Response(data)
-
-    query = Document.objects.count()
     if request.method == 'GET':
-        total_document =  Document.objects.count()
-        data  = {
-            'total_document' : DocumentSerializer(total_document).data
-        }
-        serializer = DocumentSerializer(query, many= True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        recent_documents =  Document.objects.order_by('-upload_date')
+        serializer = DocumentSummarySerializer(recent_documents, many=True, context={'request': request})
+
+        print(serializer.data)
+        return Response(serializer.data, status= status.HTTP_200_OK)
+
+
+    if request.method ==  'POST':
+        serializer = DocumentSummarySerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        return Response(status=status.HTTP_400_BAD_REQUEST)

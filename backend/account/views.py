@@ -14,6 +14,7 @@ from .models import CustomUser
 @api_view(['POST'])
 def Register(request):
     serializer = CustomUserSerializer(data = request.data)
+    print('request data for register ', request.data)
     if serializer.is_valid():
         serializer.save()
         return Response({'success' :  'Account created successfully'}, status=status.HTTP_201_CREATED)

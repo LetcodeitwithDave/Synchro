@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
+
 export const UploadButton = () => {
   return (
-    <a href="/upload">
+    <Link to={"/upload"}>
       <button className=" flex p-4 items-center text-sm font-rubikRegalar gap-2 bg-secondaryColor text-white rounded-full  h-9">
         {/* svg */}
         <div>
@@ -27,6 +29,6 @@ export const UploadButton = () => {
           <h1>UPLOAD A NEW FILE</h1>
         </div>
       </button>
-    </a>
+    </Link>
   );
 };

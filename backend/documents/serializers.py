@@ -7,6 +7,8 @@ class TagSerializer(serializers.ModelSerializer):
         model =  Tag
         fields =  ['name']
 
+
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model =  Category
@@ -20,17 +22,30 @@ class DocumentSerializer(serializers.ModelSerializer):
 
 
 class DocumentSummarySerializer(serializers.ModelSerializer):
-    # tags = TagSerializer(many=True)
-    # category = CategorySerializer(many=True)
-    file_url = serializers.SerializerMethodField()
+    tags = TagSerializer(many=True)
+    category = CategorySerializer()
 
     class Meta:
         model = Document
-        fields = ['title', 'description', 'tags','category' ,'file_url']
+        fields = ['title', 'description', 'tags', 'category', 'file']
 
+    def create(self, validated_data):
+        # Extract category and tags from validated_data
+        category_data = validated_data.pop('category')
+        tag_data = validated_data.pop('tags', [])
+
+        # Handle category creation/retrieval
+        category, _ = Category.objects.get_or_create(**category_data)
+
+        # Create the document object
+        document = Document.objects.create(category=category, **validated_data)
+
+        # Handle tags: get or create each tag and associate it with the document
+        for tag in tag_data:
+            tag_instance, _ = Tag.objects.get_or_create(**tag)
+            document.tags.add(tag_instance)
+
+        return document
+
+        
     
-    def get_file_url(self, obj):
-        request = self.context.get('request')
-        if request is not None:
-            return request.build_absolute_uri(obj.get_absolute_url())
-        return obj.get_absolute_url()

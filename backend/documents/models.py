@@ -5,7 +5,7 @@ from account.models import CustomUser
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self) -> str:
         return self.name
@@ -13,7 +13,7 @@ class Category(models.Model):
 
 
 class Tag(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, null=True , blank=True)
 
     def __str__(self) -> str:
         return self.name
@@ -21,12 +21,12 @@ class Tag(models.Model):
 class Document(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
-    tags = models.ManyToManyField(Tag, related_name='tags')
+    tags = models.ManyToManyField(Tag, related_name='tags', blank=True)
     file =  models.FileField(upload_to='documents/', null=True, blank=True)
     uploader = models.ForeignKey(CustomUser, null=True , on_delete=models.CASCADE, related_name='documents')
     last_updated = models.DateTimeField( null=True , auto_now_add=True)
     upload_date = models.DateTimeField( null=True, auto_now_add=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name = 'category')
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True ,related_name = 'category')
     
     def get_absolute_url(self):
         """ Return the full url for the file """

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
-import { toast } from "react-toastify";
+
+import { UploadLogic } from "../utils/UploadLogic";
 
 function Upload() {
   const [uploadDetails, setUploadDetails] = useState({
@@ -10,7 +11,7 @@ function Upload() {
     category: "",
   });
   const [selectedFile, setSelectedFile] = useState(null);
-  console.log("this is the selected file  ", selectedFile);
+  console.log("selected file  ", selectedFile);
 
   const handleFileUpload = (event) => {
     setSelectedFile(event.target.files[0]); // access first file in the FileList
@@ -26,44 +27,9 @@ function Upload() {
     console.log("upload Details -> ", uploadDetails);
   };
 
-  const handleUpload = async (event) => {
+  const handleUpload = (event) => {
     event.preventDefault();
-
-    // Ensure all state is up-to-date before uploading
-    console.log("Upload details: ", uploadDetails);
-    console.log("Selected file: ", selectedFile);
-
-    const uploadData = new FormData(); // Create a new FormData object
-
-    // Append text and file data to the FormData object
-    uploadData.append("title", uploadDetails.title);
-    uploadData.append("description", uploadDetails.description);
-    uploadData.append("tags", uploadDetails.tags);
-    uploadData.append("category", uploadDetails.category);
-    uploadData.append("file", selectedFile);
-    console.log("uploadded data ", uploadData);
-
-    try {
-      const response = await fetch(
-        "http://localhost:8000/api/dashboard/document_summary",
-        {
-          method: "POST",
-          body: uploadData, // Send FormData directly
-          // Content-Type header should not be manually set as the browser will handle it
-        }
-      );
-
-      if (response.ok) {
-        toast.success("File Upload Successfully");
-      } else {
-        const errorData = await response.json();
-        console.error("Upload failed: ", errorData);
-        toast.error("File upload failed");
-      }
-    } catch (error) {
-      console.error("Error uploading file: ", error);
-      toast.error("Error uploading file");
-    }
+    UploadLogic(uploadDetails, selectedFile);
   };
 
   return (

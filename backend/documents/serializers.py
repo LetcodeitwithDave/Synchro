@@ -5,14 +5,13 @@ from rest_framework import serializers
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model =  Tag
-        fields =  ['name']
-
+        fields =  '__all__'
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model =  Category
-        fields =  ['name']
+        fields =  '__all__'
 
 class DocumentSerializer(serializers.ModelSerializer):
 
@@ -22,29 +21,34 @@ class DocumentSerializer(serializers.ModelSerializer):
 
 
 class DocumentSummarySerializer(serializers.ModelSerializer):
-    
+    # category = CategorySerializer()
+    tags = TagSerializer()
+    category = CategorySerializer()
+
 
     class Meta:
         model = Document
-        fields = ['title', 'description', 'file']
+        fields = ['title', 'description', 'tags', 'category']
 
     # def create(self, validated_data):
+
+    #     print('validate data ' , validated_data)
     #     # Extract category and tags from validated_data
+
     #     category_data = validated_data.pop('category')
-    #     tag_data = validated_data.pop('tags', [])
+    #     print('category data ', category_data)
+    #     tag_data = validated_data.pop('tags')
+     
 
     #     # Handle category creation/retrieval
-    #     category, _ = Category.objects.get_or_create(**category_data)
+    #     category = Category.objects.create(**category_data)
 
     #     # Create the document object
     #     document = Document.objects.create(category=category, **validated_data)
 
     #     # Handle tags: get or create each tag and associate it with the document
     #     for tag in tag_data:
-    #         tag_instance, _ = Tag.objects.get_or_create(**tag)
+    #         tag_instance, _ = Tag.objects.create(**tag)
     #         document.tags.add(tag_instance)
 
     #     return document
-
-        
-    

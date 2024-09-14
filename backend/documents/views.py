@@ -62,6 +62,7 @@ def document_summary (request):
                 title= data['title'], 
                 description =  data['description'],
                 category = cateogry,
+                file = data['file'],
                 tags =  tag
             )
 

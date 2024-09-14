@@ -16,3 +16,8 @@
     font-weight: 700;
     font-style: normal;
 }
+
+.form-input{
+    @apply  border border-gray-400 w-3/4 mt-4 hover:ring-offset-black hover:outline-none hover:ring-0 hover:ring-white hover:ring-offset-1  focus:ring-offset-blue-800 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-1 h-[60px] rounded-md text-left px-4 
+
+}

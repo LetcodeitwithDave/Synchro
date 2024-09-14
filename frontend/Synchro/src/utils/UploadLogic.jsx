@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const UploadLogic = async (uploadDetails, selectedFile) => {
+export const UploadLogic = async (uploadDetails, selectedFile, navigate) => {
   // Ensure all state is up-to-date before uploading
   console.log("Upload details: ", uploadDetails);
   console.log("Selected file: ", selectedFile);
@@ -28,6 +28,9 @@ export const UploadLogic = async (uploadDetails, selectedFile) => {
 
     if (response.ok) {
       toast.success("File Upload Successfully");
+
+      navigate("/home");
+      console.log("page navigation -> ", navigate);
     } else {
       const errorData = await response.json();
       console.error("Upload failed: ", errorData);

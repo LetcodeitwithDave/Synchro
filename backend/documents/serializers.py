@@ -28,7 +28,7 @@ class DocumentSummarySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Document
-        fields = ['title', 'description', 'tags', 'category']
+        fields = ['title', 'description', 'tags', 'file' , 'category']
 
     # def create(self, validated_data):
 

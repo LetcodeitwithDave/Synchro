@@ -1,6 +1,14 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/authcontext";
-import { Signin, Signup, FileUploadAndList, Dashboard, Upload } from "./pages";
+import {
+  Signin,
+  Signup,
+  FileUploadAndList,
+  Dashboard,
+  Upload,
+  Documents,
+} from "./pages";
+
 // import { ToastContainer } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 
@@ -15,6 +23,7 @@ function App() {
           <Route element={<FileUploadAndList />} path="/" />
           <Route element={<Dashboard />} path="/home" />
           <Route element={<Upload />} path="/upload" />
+          <Route element={<Documents />} path="/documents" />
         </Routes>
       </AuthProvider>
     </Router>

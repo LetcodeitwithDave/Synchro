@@ -13,6 +13,8 @@ export default function Dashboard() {
 
       if (response.ok) {
         const data = await response.json();
+        setFiles(data);
+        console.log("files -> ", files);
         console.log("response data ", data);
       }
     } catch (error) {
@@ -25,15 +27,28 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className=" flex">
-      <div>
-        <Sidebar />;
-      </div>
+    <div>
+      <div className=" flex">
+        <div>
+          <Sidebar />;
+        </div>
+        <div className="   flex-col mt-12   flex-1 flex mx-10">
+          <div className=" flex flex-row  justify-between">
+            <div className=" font-rubikRegalar  text-2xl">
+              YOUR RECENT FILES
+            </div>
 
-      <div className="   flex-row mt-12  justify-between flex-1 flex mx-10">
-        <div className=" font-rubikRegalar  text-2xl">YOUR RECENT FILES</div>
+            <UploadButton />
+          </div>
 
-        <UploadButton />
+          <div className="  mt-20 ">
+            {files.map((items) => (
+              <a href={items.file}>
+                <div className=" border w-full">{items.file}</div>
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

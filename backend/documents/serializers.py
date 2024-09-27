@@ -33,10 +33,10 @@ class DocumentSummarySerializer(serializers.ModelSerializer):
     class Meta:
         model = Document
         fields = ['title', 'description', 'tags', 'file' , 'category']
-
+    
     def create(self, validated_data):
 
-        print( 'validate data in serilizer - ', validated_data)
+        
         tags_data = validated_data.pop('tags')
         category_data = validated_data.pop('category')
 
@@ -52,3 +52,5 @@ class DocumentSummarySerializer(serializers.ModelSerializer):
             )
         
         return document
+    
+    

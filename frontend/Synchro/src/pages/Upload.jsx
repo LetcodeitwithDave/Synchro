@@ -13,14 +13,16 @@ function Upload() {
     category: "",
   });
   const [selectedFile, setSelectedFile] = useState(null);
+  const [isUploaded, setIsUploaded] = useState(false);
 
   const onDrop = useCallback((acceptedFiles) => {
     setSelectedFile(acceptedFiles[0]); // Use the first file in the array
     console.log("File uploaded via drag-and-drop: ", acceptedFiles[0]);
+    setIsUploaded(true);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
+    onDrop, //func to run after file drop
     accept: "application/pdf", // You can set accepted file types
     multiple: false,
   });
@@ -60,6 +62,7 @@ function Upload() {
               isDragActive ? "border-blue-400" : "border-gray-300"
             }`}
           >
+            <input {...getInputProps()} />
             {selectedFile ? (
               <p>{selectedFile.name}</p>
             ) : (
@@ -76,63 +79,69 @@ function Upload() {
             )}
           </div>
 
-          <label htmlFor="title" className="font-rubikRegalar text-md mt-6">
-            Title:
-          </label>
-          <input
-            name="title"
-            type="text"
-            placeholder="Enter title"
-            value={uploadDetails.title}
-            onChange={handleInputChange}
-            className="form-input py-2 px-4 border border-gray-300 rounded-md"
-          />
+          {isUploaded && (
+            <>
+              <label htmlFor="title" className="font-rubikRegalar text-md mt-6">
+                Title:
+              </label>
+              <input
+                name="title"
+                type="text"
+                placeholder="Enter title"
+                value={uploadDetails.title}
+                onChange={handleInputChange}
+                className="form-input py-2 px-4 border border-gray-300 rounded-md"
+              />
 
-          <label
-            htmlFor="description"
-            className="font-rubikRegalar text-md mt-6"
-          >
-            Description:
-          </label>
-          <textarea
-            name="description"
-            type="text"
-            placeholder="Enter description"
-            value={uploadDetails.description}
-            onChange={handleInputChange}
-            className="form-input py-2 px-4 border border-gray-300 rounded-md"
-          />
+              <label
+                htmlFor="description"
+                className="font-rubikRegalar text-md mt-6"
+              >
+                Description:
+              </label>
+              <textarea
+                name="description"
+                type="text"
+                placeholder="Enter description"
+                value={uploadDetails.description}
+                onChange={handleInputChange}
+                className="form-input py-2 px-4 border border-gray-300 rounded-md"
+              />
 
-          <label htmlFor="tags" className="font-rubikRegalar text-md mt-6">
-            Tag:
-          </label>
-          <input
-            name="tags"
-            type="text"
-            placeholder="Enter tags"
-            value={uploadDetails.tags}
-            onChange={handleInputChange}
-            className="form-input py-2 px-4 border border-gray-300 rounded-md"
-          />
+              <label htmlFor="tags" className="font-rubikRegalar text-md mt-6">
+                Tag:
+              </label>
+              <input
+                name="tags"
+                type="text"
+                placeholder="Enter tags"
+                value={uploadDetails.tags}
+                onChange={handleInputChange}
+                className="form-input py-2 px-4 border border-gray-300 rounded-md"
+              />
 
-          <label htmlFor="category" className="font-rubikRegalar text-md mt-6">
-            Category:
-          </label>
-          <input
-            name="category"
-            type="text"
-            placeholder="Enter category"
-            value={uploadDetails.category}
-            onChange={handleInputChange}
-            className="form-input py-2 px-4 border border-gray-300 rounded-md"
-          />
-
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md"
-          >
-            Upload document
-          </button>
+              <label
+                htmlFor="category"
+                className="font-rubikRegalar text-md mt-6"
+              >
+                Category:
+              </label>
+              <input
+                name="category"
+                type="text"
+                placeholder="Enter category"
+                value={uploadDetails.category}
+                onChange={handleInputChange}
+                className="form-input py-2 px-4 border border-gray-300 rounded-md"
+              />
+              <button
+                type="submit"
+                className="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md"
+              >
+                Upload document
+              </button>
+            </>
+          )}
         </form>
       </div>
     </div>

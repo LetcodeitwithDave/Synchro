@@ -46,29 +46,11 @@ def document_summary (request):
         print('Received data ->', data)
         print('Received data ->', data.get('tags'))
 
+        serializer =  DocumentSummarySerializer(data =  request.data)
 
-        cateogry, created = Category.objects.get_or_create(name =  data['category'])
-        
-        tag, created = Tag.objects.get_or_create(name =  data['tags'])
-            
-
-        print(' this is the tags --', tag)
-            
-
-        if cateogry and tag :
-            print('categeory in from view request ===> ', cateogry)
-
-            document =  Document.objects.create(
-                title= data['title'], 
-                description =  data['description'],
-                category = cateogry,
-                file = data['file'],
-                tags =  tag
-            )
-
-            serializer = DocumentSummarySerializer(document)
-
-            
+        if serializer.is_valid():
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-            print(' serializer error -> ', serializer.errors)
-        return Response( serializer.errors ,status=status.HTTP_400_BAD_REQUEST)
+        
+        print( 'serilializer error => ', serializer.errors)
+        return Response(status=status.HTTP_400_BAD_REQUEST)

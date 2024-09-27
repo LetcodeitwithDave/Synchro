@@ -20,35 +20,35 @@ class DocumentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+
 class DocumentSummarySerializer(serializers.ModelSerializer):
     # category = CategorySerializer()
-    tags = TagSerializer()
-    category = CategorySerializer()
+    # tags = TagSerializer( )
+    # category = CategorySerializer( )
+
+    tags = serializers.CharField()
+    category = serializers.CharField()
 
 
     class Meta:
         model = Document
         fields = ['title', 'description', 'tags', 'file' , 'category']
 
-    # def create(self, validated_data):
+    def create(self, validated_data):
 
-    #     print('validate data ' , validated_data)
-    #     # Extract category and tags from validated_data
+        print( 'validate data in serilizer - ', validated_data)
+        tags_data = validated_data.pop('tags')
+        category_data = validated_data.pop('category')
 
-    #     category_data = validated_data.pop('category')
-    #     print('category data ', category_data)
-    #     tag_data = validated_data.pop('tags')
-     
+        
+        
+        tag_instance = Tag.objects.create(name = tags_data)
+        category_instance = Category.objects.create(name = category_data)
 
-    #     # Handle category creation/retrieval
-    #     category = Category.objects.create(**category_data)
-
-    #     # Create the document object
-    #     document = Document.objects.create(category=category, **validated_data)
-
-    #     # Handle tags: get or create each tag and associate it with the document
-    #     for tag in tag_data:
-    #         tag_instance, _ = Tag.objects.create(**tag)
-    #         document.tags.add(tag_instance)
-
-    #     return document
+        document =  Document.objects.create(
+            category= category_instance, 
+            tags= tag_instance , 
+            **validated_data
+            )
+        
+        return document

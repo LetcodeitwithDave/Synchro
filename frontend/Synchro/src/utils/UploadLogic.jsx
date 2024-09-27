@@ -34,7 +34,10 @@ export const UploadLogic = async (uploadDetails, selectedFile, navigate) => {
     } else {
       const errorData = await response.json();
       console.error("Upload failed: ", errorData);
-      toast.error("File upload failed");
+
+      for (const [key, value] of Object.entries(errorData)) {
+        toast.error(`${key}: ${value.join(", ")}`);
+      }
     }
   } catch (error) {
     console.error("Error uploading file: ", error);

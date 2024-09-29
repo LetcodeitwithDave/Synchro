@@ -67,7 +67,9 @@ function Upload() {
               <p>{selectedFile.name}</p>
             ) : (
               <div>
-                <p className="text-lg">Drag and Drop the files</p>
+                <p className="text-lg font-rubikRegalar">
+                  Drag and Drop the files
+                </p>
                 <p className="text-gray-500">or</p>
                 <button
                   type="button"

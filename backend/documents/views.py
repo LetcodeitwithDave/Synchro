@@ -42,9 +42,7 @@ def document_summary (request):
 
 
     if request.method ==  'POST':
-        data  = request.data
-        print('Received data ->', data)
-        print('Received data ->', data.get('tags'))
+        
 
         serializer =  DocumentSummarySerializer(data =  request.data)
 

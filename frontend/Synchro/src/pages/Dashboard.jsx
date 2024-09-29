@@ -54,64 +54,68 @@ export default function Dashboard() {
             ))}
           </div> */}
 
-          <div className="h-20 border border-gray-200  rounded-md mt-20">
-            <div className=" flex justify-between p-4 mx-4 mt-2">
-              <div className="flex gap-16  items-center">
-                <div className=" flex  gap-10 text-gray-500  px-8 border-r">
-                  <button>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="lucide lucide-trash"
-                    >
-                      <path d="M3 6h18" />
-                      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                    </svg>
-                  </button>
+          <div className=" mt-10">
+            {files.map((items) => (
+              <div className="h-20 border border-gray-200  rounded-md mt-4">
+                <div className=" flex justify-between p-4 mx-4 mt-2">
+                  <div className="flex gap-16  items-center">
+                    <div className=" flex  gap-10 text-gray-500  px-8 border-r">
+                      <button>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-trash"
+                        >
+                          <path d="M3 6h18" />
+                          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                        </svg>
+                      </button>
 
-                  {/* manu icon */}
-                  <button>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="lucide lucide-ellipsis-vertical"
-                    >
-                      <circle cx="12" cy="12" r="1" />
-                      <circle cx="12" cy="5" r="1" />
-                      <circle cx="12" cy="19" r="1" />
-                    </svg>
-                  </button>
-                </div>
-                <div className=" flex flex-col">
-                  <div className=" font-rubikRegalar text-md text-gray-900">
-                    MNE 314 literature catalogue with details
+                      {/* manu icon */}
+                      <button>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="lucide lucide-ellipsis-vertical"
+                        >
+                          <circle cx="12" cy="12" r="1" />
+                          <circle cx="12" cy="5" r="1" />
+                          <circle cx="12" cy="19" r="1" />
+                        </svg>
+                      </button>
+                    </div>
+                    <div className=" flex flex-col">
+                      <div className=" font-rubikRegalar text-md text-gray-900">
+                        {items.title}
+                      </div>
+                      <div className=" text-gray-500 font-rubikRegalar text-xs">
+                        5.0 MB
+                      </div>
+                    </div>
                   </div>
-                  <div className=" text-gray-500 font-rubikRegalar text-xs">
-                    5.0 MB
+
+                  <div className="  flex gap-2">
+                    <ViewButton items={items.file} />
+                    <DownloadButton />
                   </div>
                 </div>
               </div>
-
-              <div className="  flex gap-2">
-                <ViewButton />
-                <DownloadButton />
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

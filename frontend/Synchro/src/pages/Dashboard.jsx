@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
+import DownloadButton from "../components/DownloadButton";
+import ViewButton from "../components/ViewButton";
 import Sidebar from "../components/Sidebar";
 import { UploadButton } from "../components/uploadButton";
+
+import Delete from "../assets/icons/Delete.svg";
 export default function Dashboard() {
   const [files, setFiles] = useState([]);
 
@@ -34,19 +38,80 @@ export default function Dashboard() {
         </div>
         <div className="   flex-col mt-12   flex-1 flex mx-10">
           <div className=" flex flex-row  justify-between">
-            <div className=" font-rubikRegalar  text-2xl">
+            <div className=" font-rubikRegalar text-gray-900  text-2xl">
               YOUR RECENT FILES
             </div>
 
             <UploadButton />
           </div>
-
-          <div className="  mt-20 ">
+          {/* <div className="  mt-20  ">
             {files.map((items) => (
               <a href={items.file}>
-                <div className=" border w-full">{items.file}</div>
+                <div className=" border border-red-400 w-full">
+                  {items.file}
+                </div>
               </a>
             ))}
+          </div> */}
+
+          <div className="h-20 border border-gray-200  rounded-md mt-20">
+            <div className=" flex justify-between p-4 mx-4 mt-2">
+              <div className="flex gap-16  items-center">
+                <div className=" flex  gap-10 text-gray-500  px-8 border-r">
+                  <button>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-trash"
+                    >
+                      <path d="M3 6h18" />
+                      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                    </svg>
+                  </button>
+
+                  {/* manu icon */}
+                  <button>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-ellipsis-vertical"
+                    >
+                      <circle cx="12" cy="12" r="1" />
+                      <circle cx="12" cy="5" r="1" />
+                      <circle cx="12" cy="19" r="1" />
+                    </svg>
+                  </button>
+                </div>
+                <div className=" flex flex-col">
+                  <div className=" font-rubikRegalar text-md text-gray-900">
+                    MNE 314 literature catalogue with details
+                  </div>
+                  <div className=" text-gray-500 font-rubikRegalar text-xs">
+                    5.0 MB
+                  </div>
+                </div>
+              </div>
+
+              <div className="  flex gap-2">
+                <ViewButton />
+                <DownloadButton />
+              </div>
+            </div>
           </div>
         </div>
       </div>

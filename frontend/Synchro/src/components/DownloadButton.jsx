@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function DownloadButton({ items, fileId, fileName }) {
-  const downloadDocument = async () => {
+function DownloadButton({ fileId, fileName }) {
+  const DownloadDocument = async () => {
     // const API_URL =
 
     try {
@@ -16,33 +16,34 @@ function DownloadButton({ items, fileId, fileName }) {
         }
       );
 
-      if (!response.ok) {
+      if (response.ok) {
+        const data = await response.blob(); //convert response to blob
+
+        const downloadUrl = window.URL.createObjectURL(data); //DOM url
+        const link = document.createElement("a");
+        link.href = downloadUrl;
+        link.download = fileName;
+
+        link.click();
+        link.remove();
+        //make DOM url invalid
+        window.URL.revokeObjectURL(downloadUrl);
+
+        console.log(link);
+        console.log(" blob document (converted response to blob) -> ", data);
+        console.log("download url -> ", downloadUrl);
+      } else {
         console.log("failed to download file");
       }
-
-      const data = await response.blob(); //convert response to blob
-
-      const downloadUrl = window.URL.createObjectURL(data); //DOM url
-      const link = document.createElement("a");
-      link.href = downloadUrl;
-      link.download = fileName;
-
-      link.click();
-      link.remove();
-      //make DOM url invalid
-      window.URL.revokeObjectURL(downloadUrl);
-
-      console.log(link);
-      console.log(" blob document (converted response to blob) -> ", data);
-      console.log("download url -> ", downloadUrl);
     } catch (error) {
       console.error("Download failed ", error.message);
     }
   };
+
   return (
     <div>
       <button
-        onClick={downloadDocument}
+        onClick={DownloadDocument}
         className=" flex  gap-1 items-center rounded-full bg-red-600 font-rubikRegalar text-sm px-4 py-1 text-white"
       >
         <svg

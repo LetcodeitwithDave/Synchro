@@ -31,24 +31,3 @@ def mydocuments(request):
         
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET', 'POST'])
-def document_summary (request):
-    if request.method == 'GET':
-        recent_documents =  Document.objects.order_by('-upload_date')
-        serializer = DocumentSummarySerializer(recent_documents, many=True, context={'request': request})
-
-        print(serializer.data)
-        return Response(serializer.data, status= status.HTTP_200_OK)
-
-
-    if request.method ==  'POST':
-        
-
-        serializer =  DocumentSummarySerializer(data =  request.data)
-
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
-        print( 'serilializer error => ', serializer.errors)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

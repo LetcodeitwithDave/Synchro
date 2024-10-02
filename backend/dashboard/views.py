@@ -20,7 +20,7 @@ def dashboard_summary (request):
         serializer = DashboardSummarySerializer(data)
 
 
-        if serializer.is_valid:
+        if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 

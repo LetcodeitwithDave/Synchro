@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .serializers import DocumentSerializer , DocumentSummarySerializer
 from .models import Document, Category, Tag
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.decorators import api_view, permission_classes, parser_classes
 from rest_framework.permissions import IsAuthenticated
-
+from django.http import FileResponse
 from rest_framework import status
 from rest_framework.response import Response
 
@@ -30,4 +30,15 @@ def mydocuments(request):
             return Response(serializer.data, status=status.HTTP_200_OK)
         
         return Response(status=status.HTTP_400_BAD_REQUEST)
+@api_view(['GET'])
+def download_document(request, file_id):
+    file_obj =  get_object_or_404(Document, id=file_id) #get file obj
+    file_path = file_obj.file.path #file path
+    
+    print('download file path => ', file_path)
+    #serve file as a downlaodable response
+    response = FileResponse(open( file_path, 'rb'), as_attachment=True)
+    print('download response => ', response)
+    response['Content-Disposition'] = f'attachment; filename="{file_obj.file.name}"'
 
+    return response

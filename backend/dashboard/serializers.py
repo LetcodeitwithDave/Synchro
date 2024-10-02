@@ -11,7 +11,7 @@ class DashboardSummarySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Document
-        fields = ['title', 'description', 'tags', 'file' , 'category']
+        fields = ['id', 'title', 'description', 'tags', 'file' , 'category']
     
     def create(self, validated_data):
 

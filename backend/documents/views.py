@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .serializers import DocumentSerializer , DocumentSummarySerializer
+from .serializers import DocumentSerializer , SearchSerializer ,DocumentSummarySerializer
 from .models import Document, Category, Tag
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.decorators import api_view, permission_classes, parser_classes
@@ -30,6 +30,8 @@ def mydocuments(request):
             return Response(serializer.data, status=status.HTTP_200_OK)
         
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        
 @api_view(['GET'])
 def download_document(request, file_id):
     file_obj =  get_object_or_404(Document, id=file_id) #get file obj
@@ -42,3 +44,21 @@ def download_document(request, file_id):
     response['Content-Disposition'] = f'attachment; filename="{file_obj.file.name}"'
 
     return response
+@api_view(['GET'])
+def search_document(request):
+    queryset = Document.objects.all()
+    print('request data => ', request.GET.get('title'))
+
+    title  = request.GET.get('title', None)
+    
+    if title:
+        queryset = queryset.filter(title__icontains = title)
+
+    serializer = SearchSerializer( queryset, many=True)
+    print('serializer data =>', serializer.data)
+    return Response({'data':serializer.data}, status=status.HTTP_200_OK)
+
+
+
+    
+    

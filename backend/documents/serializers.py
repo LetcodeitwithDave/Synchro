@@ -53,4 +53,12 @@ class DocumentSummarySerializer(serializers.ModelSerializer):
         
         return document
     
+
+class SearchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model =  Document
+        fields = ['id', 'title', 'description', 'tags', 'file' , 'category']
+
+
+    
     

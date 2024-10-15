@@ -23,7 +23,13 @@ function Upload() {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop, //func to run after file drop
-    accept: "application/pdf", // You can set accepted file types
+    accept: {
+      "application/pdf": [],
+      "application/docx": [".docx"],
+      "image/jpeg": [],
+      "image/png": [],
+    }, // You can set accepted file types
+
     multiple: false,
   });
 

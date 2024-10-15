@@ -18,7 +18,7 @@ export const UploadLogic = async (uploadDetails, selectedFile, navigate) => {
 
   try {
     const response = await fetch(
-      "http://localhost:8000/api/dashboard/document_summary",
+      "http://localhost:8000/api/dashboard/dashboard_summary/",
       {
         method: "POST",
         body: uploadData, // Send FormData directly

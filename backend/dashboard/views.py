@@ -15,9 +15,9 @@ def dashboard_summary (request):
         return Response(serializer.data, status= status.HTTP_200_OK)
     
     elif request.method == 'POST':
-        data = request.data
-
-        serializer = DashboardSummarySerializer(data)
+        print('request data -> ', request.data)
+       
+        serializer = DashboardSummarySerializer(data= request.data)
 
 
         if serializer.is_valid():

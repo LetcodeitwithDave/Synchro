@@ -47,7 +47,7 @@ def download_document(request, file_id):
 @api_view(['GET'])
 def search_document(request):
     queryset = Document.objects.all()
-    print('request data => ', request.GET.get('title'))
+    # print('request parameter => ', request.query_params.get('title', None))
 
     title  = request.GET.get('title', None)
     
@@ -61,4 +61,24 @@ def search_document(request):
 
 
     
+@api_view(['GET'])
+def document_type(request):
+    file_extension =  request.query_params.get('extension', None)
+    
+
+    if file_extension:
+        print('file extension -> ', file_extension[0])
+        if not file_extension[0] == '.':
+            file_extension = f".{file_extension}" #add (.) to extension
+
+
+        document = Document.objects.filter(file__iendswith=file_extension) #file__iendswith --> case insensitive
+        serializer = DocumentSerializer(document, many=True, context={'request': request})
+        return Response({'data': serializer.data}, status=status.HTTP_200_OK)
+    
+    else:
+        document  = Document.objects.all()
+        serializer =  DocumentSerializer(document, many=True, context={'request': request})
+
+        return Response({'data' : serializer.data}, status=status.HTTP_200_OK)
     

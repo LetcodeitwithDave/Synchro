@@ -15,9 +15,9 @@ function Upload() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isUploaded, setIsUploaded] = useState(false);
 
-  const onDrop = useCallback((acceptedFiles) => {
-    setSelectedFile(acceptedFiles[0]); // Use the first file in the array
-    console.log("File uploaded via drag-and-drop: ", acceptedFiles[0]);
+  const onDrop = useCallback((droppedItem) => {
+    setSelectedFile(droppedItem[0]); // Use the first file in the array
+    console.log("File uploaded via drag-and-drop: ", droppedItem[0]);
     setIsUploaded(true);
   }, []);
 

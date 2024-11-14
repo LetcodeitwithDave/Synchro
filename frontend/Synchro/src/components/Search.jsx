@@ -30,7 +30,7 @@ function Search() {
   };
 
   return (
-    <div className="relative w-full max-w-lg ">
+    <div className="relative rounded-full max-w-lg  shadow-lg  my-8 ">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -49,7 +49,7 @@ function Search() {
 
       <input
         type="text"
-        className="w-full border rounded-full h-10 pl-10 pr-4"
+        className="w-full border  rounded-full h-12 pl-10 pr-4"
         placeholder="Search..."
         value={input}
         onKeyDown={handleKeyPress}

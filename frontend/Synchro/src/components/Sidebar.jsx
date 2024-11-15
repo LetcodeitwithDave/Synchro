@@ -1,59 +1,70 @@
 import { Navlinks } from "../constants";
-
+import { CloudUpload } from "lucide-react";
+import { illustrationDashboard } from "../assets/images";
 import { Link, useLocation } from "react-router-dom";
 
 export default function Sidebar() {
   const location = useLocation();
 
   return (
-    <div className=" bg-sidebarBg  max-w-md px-6 min-h-screen   pt-8">
-      <div className=" mx-8">
-        <div className=" flex flex-row gap-2 items-center">
+    <div className=" bg-white  flex flex-col items-start  px-6 min-h-screen   mt-8">
+      <div className=" mx-4 ">
+        <div className=" flex flex-row gap-2 items-center ">
           <div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-cloud-upload p-2 w-full h-full rounded-md bg-secondaryColor text-lg text-white"
-            >
-              <path d="M12 13v8" />
-              <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
-              <path d="m8 17 4-4 4 4" />
-            </svg>
+            <CloudUpload className=" p-2 w-full h-full rounded-md bg-secondaryColor text-lg text-white" />
           </div>
 
-          <h1 className=" font-rubikSemiBold text-xl text-gray-900">Synchro</h1>
+          <h1 className=" font-rubikSemiBold text-2xl text-gray-900">
+            Synchro
+          </h1>
         </div>
-        {Navlinks.map((items) => (
-          <div
-            className="  mt-8 font-rubikRegalar  text-md text-gray-700 hover:text-secondaryColor"
-            key={items.label}
-          >
-            {/* <a href={items.href}>
-              <p
+
+        <div className=" mt-16">
+          {Navlinks.map((items) => (
+            <div
+              className={`mt-4 font-rubikRegalar py-4 pr-16 p-6   ${
+                location.pathname == items.href &&
+                "bg-secondaryColor rounded-full shadow-xl"
+              }  text-md text-gray-700 hover:text-secondaryColor `}
+              key={items.label}
+            >
+              <Link
+                to={items.href}
                 className={`${
-                  location.pathname == items.href ? "text-secondaryColor" : ""
+                  location.pathname == items.href
+                    ? "text-white  gap-4 flex rounded-full"
+                    : " flex  gap-4"
                 } `}
               >
+                {location.pathname == items.href ? (
+                  <items.icon className=" fill-current text-white" />
+                ) : (
+                  <items.icon className=" fill-current text-gray-400" />
+                )}
+
                 {items.label}
+              </Link>
+            </div>
+          ))}
+        </div>
+
+        <div className=" flex flex-col items-center  mt-20 ">
+          <img
+            src={illustrationDashboard}
+            alt="dashboard illustration"
+            className=" w-56"
+          />
+          <div className=" flex gap-4 items-center  mt-10 ">
+            <div className=" h-14  w-14  rounded-full bg-gray-300" />
+
+            <div>
+              <h1 className=" font-rubikSemiBold">Solola David</h1>
+              <p className=" font-rubikRegalar text-gray-500">
+                sololadavid4@gmail.com
               </p>
-            </a> */}
-            <Link
-              to={items.href}
-              className={`${
-                location.pathname == items.href ? "text-secondaryColor" : ""
-              } `}
-            >
-              {items.label}
-            </Link>
+            </div>
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );

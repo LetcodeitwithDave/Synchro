@@ -19,22 +19,15 @@ export default function Sidebar() {
           </h1>
         </div>
 
-        <div className=" mt-16">
+        <div className=" mt-12">
           {Navlinks.map((items) => (
-            <div
-              className={`mt-4 font-rubikRegalar py-4 pr-16 p-6   ${
-                location.pathname == items.href &&
-                "bg-secondaryColor rounded-full shadow-xl"
-              }  text-md text-gray-700 hover:text-secondaryColor `}
-              key={items.label}
-            >
-              <Link
-                to={items.href}
-                className={`${
-                  location.pathname == items.href
-                    ? "text-white  gap-4 flex rounded-full"
-                    : " flex  gap-4"
-                } `}
+            <Link to={items.href}>
+              <button
+                className={`mt-4 font-rubikRegalar py-4 pr-16 p-6   ${
+                  location.pathname == items.href &&
+                  "bg-secondaryColor hover:text-white  transition duration-200 text-white rounded-full shadow-xl"
+                }  text-md text-gray-700 hover:text-secondaryColor gap-4 flex `}
+                key={items.label}
               >
                 {location.pathname == items.href ? (
                   <items.icon className=" fill-current text-white" />
@@ -43,12 +36,12 @@ export default function Sidebar() {
                 )}
 
                 {items.label}
-              </Link>
-            </div>
+              </button>
+            </Link>
           ))}
         </div>
 
-        <div className=" flex flex-col items-center  mt-20 ">
+        <div className=" flex flex-col items-center  mt-14 ">
           <img
             src={illustrationDashboard}
             alt="dashboard illustration"

@@ -35,7 +35,7 @@ function SearchInput() {
 
       <input
         type="text"
-        className="w-72 border  rounded-full h-12 pl-10 pr-4 font-rubikRegalar "
+        className="w-96 border  rounded-full h-12 pl-10 pr-4 font-rubikRegalar "
         placeholder="Search..."
         value={input}
         onKeyDown={handleKeyPress}

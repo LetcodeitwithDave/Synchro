@@ -1,13 +1,21 @@
 import { useEffect, useState } from "react";
-import { Search } from "../components";
+import SearchInput from "../components/SearchInput";
 import DownloadButton from "../components/DownloadButton";
 import ViewButton from "../components/ViewButton";
 import Sidebar from "../components/Sidebar";
 import { UploadButton } from "../components/uploadButton";
+import { Trash, EllipsisVertical } from "lucide-react";
+import { RecentFileUpload, ChartandDashboardcard } from "../components";
 
-import Delete from "../assets/icons/Delete.svg";
 export default function Dashboard() {
   const [files, setFiles] = useState([]);
+  const recentUpload = [
+    { fileName: "Cvdesigner.docx", time: " 4:47am, 10 Nov" },
+    { fileName: "Cvdesigner.docx", time: " 4:47am, 10 Nov" },
+    { fileName: "Cvdesigner.docx", time: " 4:47am, 10 Nov" },
+    { fileName: "Cvdesigner.docx", time: " 4:47am, 10 Nov" },
+    { fileName: "Cvdesigner.docx", time: " 4:47am, 10 Nov" },
+  ];
 
   const FetchFiles = async () => {
     try {
@@ -38,26 +46,20 @@ export default function Dashboard() {
         <div>
           <Sidebar />;
         </div>
-        <div className="   flex-col mt-12   flex-1 flex mx-10">
-          <div className=" mb-10">
-            <Search />
-          </div>
-          <div className=" flex flex-row  justify-between">
-            <div className=" font-rubikRegalar text-gray-900  text-2xl">
-              YOUR RECENT FILES
-            </div>
-
+        <div className="   flex-col  flex-1 flex  ">
+          <div className=" flex  flex-row items-center justify-between ">
+            <SearchInput />
             <UploadButton />
           </div>
-          {/* <div className="  mt-20  ">
-            {files.map((items) => (
-              <a href={items.file}>
-                <div className=" border border-red-400 w-full">
-                  {items.file}
-                </div>
-              </a>
-            ))}
-          </div> */}
+          <div className="    rounded-3xl py-8 min-h-screen px-20  bg-sidebarBg ">
+            <div className="  flex">
+              <div className=" flex flex-col w-full">
+                <div className=" h-72 w-[80%] rounded-xl  bg-secondaryColor flex-shrink-0 "></div>
+              </div>
+
+              <RecentFileUpload recentUpload={recentUpload} />
+            </div>
+          </div>
 
           <div className=" mt-10">
             {files.map((items) => (
@@ -66,42 +68,12 @@ export default function Dashboard() {
                   <div className="flex gap-16  items-center">
                     <div className=" flex  gap-10 text-gray-500  px-8 border-r">
                       <button>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="lucide lucide-trash"
-                        >
-                          <path d="M3 6h18" />
-                          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                        </svg>
+                        <Trash />
                       </button>
 
                       {/* manu icon */}
                       <button>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="lucide lucide-ellipsis-vertical"
-                        >
-                          <circle cx="12" cy="12" r="1" />
-                          <circle cx="12" cy="5" r="1" />
-                          <circle cx="12" cy="19" r="1" />
-                        </svg>
+                        <EllipsisVertical />
                       </button>
                     </div>
                     <div className=" flex flex-col">

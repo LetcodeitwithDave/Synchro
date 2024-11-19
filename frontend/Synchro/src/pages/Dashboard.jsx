@@ -43,25 +43,20 @@ export default function Dashboard() {
   return (
     <div>
       <div className=" flex">
-        <div>
-          <Sidebar />;
-        </div>
         <div className="   flex-col  flex-1 flex  ">
-          <div className=" flex  flex-row items-center justify-between ">
+          {/* <div className=" flex  flex-row items-center justify-between ">
             <SearchInput />
             <UploadButton />
-          </div>
-          <div className="    rounded-3xl py-8 min-h-screen px-20  bg-sidebarBg ">
+          </div> */}
+          <div className="    rounded-3xl py-8 min-h-screen px-14  bg-sidebarBg ">
             <div className="  flex">
-              <div className=" flex flex-col w-full">
-                <div className=" h-72 w-[80%] rounded-xl  bg-secondaryColor flex-shrink-0 "></div>
-              </div>
+              <ChartandDashboardcard />
 
               <RecentFileUpload recentUpload={recentUpload} />
             </div>
           </div>
 
-          <div className=" mt-10">
+          {/* <div className=" mt-10">
             {files.map((items) => (
               <div className="h-20 border border-gray-200  rounded-md mt-4">
                 <div className=" flex justify-between p-4 mx-4 mt-2">
@@ -71,7 +66,6 @@ export default function Dashboard() {
                         <Trash />
                       </button>
 
-                      {/* manu icon */}
                       <button>
                         <EllipsisVertical />
                       </button>
@@ -93,7 +87,7 @@ export default function Dashboard() {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -18,4 +18,5 @@ export const Navlinks = [
     icon: (props) => <FontAwesomeIcon icon={faImage} size="xl" {...props} />,
   },
   { label: "Media", href: "/media", icon: Video },
+  { label: "Others", href: "/others", icon: Goal },
 ];

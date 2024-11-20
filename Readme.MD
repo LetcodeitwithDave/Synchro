@@ -50,7 +50,7 @@ Make sure you have the following installed:
 git clone https://github.com/yourusername/synchro.git
 cd synchro
 
-Backend Setup:
+### Backend Setup:
 
 1. Navigate to the backend/ directory:
 

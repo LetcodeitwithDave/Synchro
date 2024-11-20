@@ -48,7 +48,7 @@ Make sure you have the following installed:
 
 ```bash
 git clone https://github.com/yourusername/synchro.git
-cd synchro
+cd synchro```
 
 ### Backend Setup:
 

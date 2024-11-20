@@ -17,21 +17,25 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class DocumentSerializer(serializers.ModelSerializer):
     file_extension =  serializers.SerializerMethodField()
+    file_name = serializers.SerializerMethodField()
 
 
     class Meta:
+
         model = Document
-        fields = ['file', 'file_extension', ]
+        fields = ['file', 'file_extension','file_name' ]
 
     def get_file_extension (self, obj):
         value = os.path.splitext(obj.file.name)[1]
-        print('value in seriliazer => ', value)
-        print('obj in serializer => ', obj)
-        print('obj in serializer name  => ', os.path.splitext(obj.file.name))
+        
         return value
     
-
-
+    def get_file_name (self, obj):
+        file_path = obj.file.name
+        file_name = os.path.basename(file_path)
+        print('this is the file name ', file_name)
+        return file_name
+   
 
 class DocumentSummarySerializer(serializers.ModelSerializer):
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .serializers import DocumentSerializer , SearchSerializer ,DocumentSummarySerializer
-from .models import Document, Category, Tag
+from .models import File, Category, Tag
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.decorators import api_view, permission_classes, parser_classes
 from rest_framework.permissions import IsAuthenticated
@@ -17,7 +17,7 @@ def mydocuments(request):
 
     if request.method == 'GET':
         # user =  request.user
-        document_count =  Document.objects.all()
+        document_count =  File.objects.all()
 
         serializer = DocumentSerializer(document_count, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -34,7 +34,7 @@ def mydocuments(request):
         
 @api_view(['GET'])
 def download_document(request, file_id):
-    file_obj =  get_object_or_404(Document, id=file_id) #get file obj
+    file_obj =  get_object_or_404(File, id=file_id) #get file obj
     file_path = file_obj.file.path #file path
     
     print('download file path => ', file_path)
@@ -46,9 +46,8 @@ def download_document(request, file_id):
     return response
 @api_view(['GET'])
 def search_document(request):
-    queryset = Document.objects.all()
-    # print('request parameter => ', request.query_params.get('title', None))
-
+    queryset = File.objects.all()
+    # print('request parameter => ', request.query_params.get('title', None))    
     title  = request.GET.get('title', None)
     
     if title:
@@ -65,20 +64,18 @@ def search_document(request):
 def document_type(request):
     file_extension =  request.query_params.get('extension', None)
     
-
     if file_extension:
         print('file extension -> ', file_extension[0])
         if not file_extension[0] == '.':
             file_extension = f".{file_extension}" #add (.) to extension
 
 
-        document = Document.objects.filter(file__iendswith=file_extension) #file__iendswith --> case insensitive
+        document = File.objects.filter(file__iendswith=file_extension) #file__iendswith --> case insensitive
         serializer = DocumentSerializer(document, many=True, context={'request': request})
         return Response({'data': serializer.data}, status=status.HTTP_200_OK)
     
     else:
-        document  = Document.objects.all()
+        document  = File.objects.all()
         serializer =  DocumentSerializer(document, many=True, context={'request': request})
 
         return Response({'data' : serializer.data}, status=status.HTTP_200_OK)
-    

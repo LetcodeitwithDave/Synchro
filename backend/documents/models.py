@@ -18,7 +18,7 @@ class Tag(models.Model):
     def __str__(self) :
         return self.name
 
-class Document(models.Model):
+class File(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
     tags = models.ForeignKey(Tag, related_name='tags', null=True , on_delete=models.SET_NULL)

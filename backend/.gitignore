@@ -7,3 +7,4 @@ dashboard/migrations/*
 documents/migrations/*
 
 .env
+media/*

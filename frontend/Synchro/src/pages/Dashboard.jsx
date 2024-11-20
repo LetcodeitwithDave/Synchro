@@ -17,28 +17,28 @@ export default function Dashboard() {
     { fileName: "Cvdesigner.docx", time: " 4:47am, 10 Nov" },
   ];
 
-  const FetchFiles = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:8000/api/dashboard/dashboard_summary/",
-        { method: "GET" }
-      );
+  // const FetchFiles = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       "http://localhost:8000/api/dashboard/dashboard_summary/",
+  //       { method: "GET" }
+  //     );
 
-      if (response.ok) {
-        const data = await response.json();
-        setFiles(data);
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setFiles(data);
 
-        // console.log("files -> ", files);
-        // console.log("response data ", data);
-      }
-    } catch (error) {
-      console.log("something went wrong");
-    }
-  };
+  //       // console.log("files -> ", files);
+  //       // console.log("response data ", data);
+  //     }
+  //   } catch (error) {
+  //     console.log("something went wrong");
+  //   }
+  // };
 
-  useEffect(() => {
-    FetchFiles();
-  }, []);
+  // useEffect(() => {
+  //   FetchFiles();
+  // }, []);
 
   return (
     <div>
@@ -48,7 +48,7 @@ export default function Dashboard() {
             <SearchInput />
             <UploadButton />
           </div> */}
-          <div className="    rounded-3xl py-8 min-h-screen px-14  bg-sidebarBg ">
+          <div className="     ">
             <div className="  flex">
               <ChartandDashboardcard />
 

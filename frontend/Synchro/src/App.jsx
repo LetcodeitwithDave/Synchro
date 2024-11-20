@@ -26,16 +26,18 @@ function App() {
         <div className="  flex">
           <Sidebar />
 
-          <div className="flex flex-col w-full">
+          <div className=" flex flex-col w-full">
             <Navbar />
-            <Routes>
-              <Route element={<Signup />} path="/register" />
-              <Route element={<Signin />} path="/login" />
-              <Route element={<FileUploadAndList />} path="/" />
-              <Route element={<Dashboard />} path="/home" />
-              <Route element={<Upload />} path="/upload" />
-              <Route element={<Documents />} path="/documents" />
-            </Routes>
+            <div className="w-full rounded-3xl py-8 min-h-screen px-14  bg-sidebarBg  ">
+              <Routes>
+                <Route element={<Signup />} path="/register" />
+                <Route element={<Signin />} path="/login" />
+                <Route element={<FileUploadAndList />} path="/" />
+                <Route element={<Dashboard />} path="/home" />
+                <Route element={<Upload />} path="/upload" />
+                <Route element={<Documents />} path="/documents" />
+              </Routes>
+            </div>
           </div>
         </div>
         {/* <ToastContainer /> Place it here so it’s available globally */}

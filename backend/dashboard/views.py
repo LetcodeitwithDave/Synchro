@@ -2,13 +2,13 @@ from django.shortcuts import render
 from .serializers import DashboardSummarySerializer
 from rest_framework.response import Response
 from rest_framework import status
-from  documents.models import Document
+from  documents.models import File
 from rest_framework.decorators import api_view
 
 @api_view(['GET', 'POST'])
 def dashboard_summary (request):
     if request.method == 'GET':
-        recent_documents =  Document.objects.order_by('-upload_date')[:5]
+        recent_documents =  File.objects.order_by('-upload_date')[:5]
         serializer = DashboardSummarySerializer(recent_documents, many=True, context={'request': request})
 
 

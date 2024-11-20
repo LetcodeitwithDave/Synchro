@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from documents.models import Document, Category, Tag
+from documents.models import File, Category, Tag
 
 
 class DashboardSummarySerializer(serializers.ModelSerializer):
@@ -10,7 +10,7 @@ class DashboardSummarySerializer(serializers.ModelSerializer):
 
 
     class Meta:
-        model = Document
+        model = File
         fields = ['id', 'title', 'description', 'tags', 'file' , 'category']
     
     def create(self, validated_data):
@@ -24,7 +24,7 @@ class DashboardSummarySerializer(serializers.ModelSerializer):
         tag_instance = Tag.objects.create(name = tags_data)
         category_instance = Category.objects.create(name = category_data)
 
-        document =  Document.objects.create(
+        document =  File.objects.create(
             category= category_instance, 
             tags= tag_instance , 
             **validated_data

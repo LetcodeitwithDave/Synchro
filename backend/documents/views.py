@@ -1,12 +1,13 @@
 from django.shortcuts import render, get_object_or_404
-from .serializers import DocumentSerializer , SearchSerializer ,DocumentSummarySerializer
-from .models import File, Category, Tag
+from .serializers import DocumentSerializer , SearchSerializer ,FileSerializer
+from .models import Document, Category, Tag
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.decorators import api_view, permission_classes, parser_classes
 from rest_framework.permissions import IsAuthenticated
 from django.http import FileResponse
 from rest_framework import status
 from rest_framework.response import Response
+import os
 
 # Create your views here.
 
@@ -17,7 +18,7 @@ def mydocuments(request):
 
     if request.method == 'GET':
         # user =  request.user
-        document_count =  File.objects.all()
+        document_count =  Document.objects.all()
 
         serializer = DocumentSerializer(document_count, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -34,7 +35,7 @@ def mydocuments(request):
         
 @api_view(['GET'])
 def download_document(request, file_id):
-    file_obj =  get_object_or_404(File, id=file_id) #get file obj
+    file_obj =  get_object_or_404(Document, id=file_id) #get file obj
     file_path = file_obj.file.path #file path
     
     print('download file path => ', file_path)
@@ -46,7 +47,7 @@ def download_document(request, file_id):
     return response
 @api_view(['GET'])
 def search_document(request):
-    queryset = File.objects.all()
+    queryset = Document.objects.all()
     # print('request parameter => ', request.query_params.get('title', None))    
     title  = request.GET.get('title', None)
     
@@ -70,12 +71,36 @@ def document_type(request):
             file_extension = f".{file_extension}" #add (.) to extension
 
 
-        document = File.objects.filter(file__iendswith=file_extension) #file__iendswith --> case insensitive
+        document = Document.objects.filter(file__iendswith=file_extension) #file__iendswith --> case insensitive
         serializer = DocumentSerializer(document, many=True, context={'request': request})
         return Response({'data': serializer.data}, status=status.HTTP_200_OK)
     
     else:
-        document  = File.objects.all()
+        print('request => ', request)
+        document  = Document.objects.all()
         serializer =  DocumentSerializer(document, many=True, context={'request': request})
 
         return Response({'data' : serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def upload_file(request):
+    
+    if 'file' not in request.FILES:
+        return Response({'error': 'No file provided'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    upload_file =  request.FILES['file']
+    file_name, file_extension = os.path.splitext(upload_file.name)
+
+    data = {
+        'name': file_name,
+        'size': upload_file.size,
+        'extension': file_extension,
+        'file': upload_file,
+
+    }
+
+    serializer =  FileSerializer(data = data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({'data': serializer.data}, status=status.HTTP_201_CREATED)
+    return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)

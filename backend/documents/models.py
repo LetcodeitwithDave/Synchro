@@ -5,7 +5,7 @@ from account.models import CustomUser
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
 
     def __str__(self) :
         return self.name 
@@ -18,7 +18,7 @@ class Tag(models.Model):
     def __str__(self) :
         return self.name
 
-class File(models.Model):
+class Document(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
     tags = models.ForeignKey(Tag, related_name='tags', null=True , on_delete=models.SET_NULL)
@@ -33,6 +33,15 @@ class File(models.Model):
         return self.file.url
     
 
+
+class File(models.Model):
+    name = models.CharField(max_length=255)
+    size = models.PositiveBigIntegerField()
+    extension = models.CharField(max_length=10)  # File extension (e.g., .pdf)
+    category = models.ForeignKey( Category, on_delete=models.CASCADE , related_name='files')  # Category (documents, images, etc.)
+    file = models.FileField(upload_to="uploads/")  # File storage path
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    
 
     def __str__(self) :
         return self.title

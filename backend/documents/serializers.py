@@ -1,6 +1,7 @@
-from  .models import File, Tag, Category
+from  .models import Document, Tag, Category, File
 import os
 from rest_framework import serializers
+from ..utils import get_extension_by_category
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -22,7 +23,7 @@ class DocumentSerializer(serializers.ModelSerializer):
 
     class Meta:
 
-        model = File
+        model = Document
         fields = ['file', 'file_extension','file_name' ]
 
     def get_file_extension (self, obj):
@@ -44,20 +45,33 @@ class DocumentSummarySerializer(serializers.ModelSerializer):
 
 
     class Meta:
-        model = File
+        model = Document
         fields = ['title', 'description', 'tags', 'file' , 'category']
     
 
 class SearchSerializer(serializers.ModelSerializer):
     class Meta:
-        model =  File
+        model =  Document
         fields = ['id', 'title', 'description', 'tags', 'file' , 'category']
-
-
-    
 
 
 class FileSerializer(serializers.ModelSerializer):
     class Meta:
         model =  File
+        fields = '__all__'
+
+    def create(self, validated_data):
+
+        file_extension = validated_data['extension']
+        category = get_extension_by_category(file_extension)
+
+        category_instance, _ = File.objects.get_or_create(name=category)
+
+        create_file = File.objects.create(
+            category=category_instance, 
+            **validated_data
+            )
+
+        return create_file
+
         

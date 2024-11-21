@@ -1,8 +1,7 @@
 from  .models import Document, Tag, Category, File
 import os
 from rest_framework import serializers
-from ..utils import get_extension_by_category
-
+from documents.utils import get_extension_by_category
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:

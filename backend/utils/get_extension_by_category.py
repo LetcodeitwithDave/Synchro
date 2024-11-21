@@ -14,7 +14,7 @@ def get_category_by_extension(file_extension):
             print(category)
             print(file_extension.lower())
             print(extensions)
-            print(FILE_CATEGORIES.items())
+            print(FILE_CATEGORIES.items()) 
     return print("others") 
 
 get_category_by_extension('.sVg')

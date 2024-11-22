@@ -8,7 +8,7 @@ import {
   Upload,
   Documents,
 } from "./pages";
-import { Sidebar, SearchInput, UploadButton, Navbar } from "./components";
+import { Sidebar, Navbar } from "./components";
 
 // import { ToastContainer } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
@@ -34,7 +34,7 @@ function App() {
                 <Route element={<Signin />} path="/login" />
                 <Route element={<FileUploadAndList />} path="/" />
                 <Route element={<Dashboard />} path="/home" />
-                <Route element={<Upload />} path="/upload" />
+                {/* <Route element={<Upload />} path="/upload" /> */}
                 <Route element={<Documents />} path="/documents" />
               </Routes>
             </div>

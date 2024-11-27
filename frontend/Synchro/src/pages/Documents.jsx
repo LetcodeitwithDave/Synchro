@@ -1,21 +1,58 @@
-import React from "react";
-import Sidebar from "../components/Sidebar";
-import { UploadButton } from "../components/uploadButton";
-import NavContent from "../components/NavContent";
+import React, { useEffect, useState } from "react";
+// import NavContent from "../components/NavContent";
 function Documents() {
+  const [files, setFiles] = useState([]);
+  const FetchFiles = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8000/api/dashboard/dashboard_summary/",
+        { method: "GET" }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setFiles(data);
+
+        // console.log("files -> ", files);
+        // console.log("response data ", data);
+      }
+    } catch (error) {
+      console.log("something went wrong");
+    }
+  };
+
+  useEffect(() => {
+    FetchFiles();
+  }, []);
+
   return (
     <div className=" flex">
-      <Sidebar />
-
-      <div className=" flex-col mt-12   flex-1 flex mx-10">
-        <div className=" flex flex-row justify-between">
-          <div className=" font-rubikRegalar text-2xl">ALL FILES</div>
-
-          <UploadButton />
+      <div className=" flex-col  flex-1 flex ">
+        <div className=" flex flex-col ">
+          <div className=" font-rubikSemiBold text-gray-900 text-4xl">
+            Documents
+          </div>
+          <div className=" font-rubikRegalar text-md text-gray-700 mt-4 ">
+            Total: 12.5Gb
+          </div>
         </div>
-        <div className=" mt-8 flex">
+
+        <div className=" grid grid-cols-4  mt-16 gap-10 w-full">
+          <div className=" bg-white h-44 w-60 rounded-xl shadow-md  "></div>
+          <div className=" bg-white h-44 w-60 rounded-xl  shadow-md  "></div>
+          <div className=" bg-white h-44 w-60 rounded-xl shadow-md  "></div>
+          <div className=" bg-white h-44 w-60 rounded-xl shadow-md  "></div>
+          <div className=" bg-white h-44 w-60 rounded-xl shadow-md  "></div>
+          <div className=" bg-white h-44 w-60 rounded-xl  shadow-md "></div>
+          <div className=" bg-white h-44 w-60 rounded-xl  shadow-md "></div>
+          <div className=" bg-white h-44 w-60 rounded-xl  shadow-md "></div>
+          <div className=" bg-white h-44 w-60 rounded-xl  shadow-md "></div>
+          <div className=" bg-white h-44 w-60 rounded-xl  shadow-md "></div>
+        </div>
+
+        {/* <div className=" mt-8 flex">
           <NavContent />
-        </div>
+        </div> */}
       </div>
     </div>
   );

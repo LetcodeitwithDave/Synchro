@@ -80,14 +80,18 @@ class FileSerializer(serializers.ModelSerializer):
             validated_data['category'] = get_category_by_extension(file_extension)
             print('category in the fucntion => ', get_category_by_extension(file_extension))
         
-        file_instance, created = File.objects.get_or_create(validated_data)
-        
-        if not created:
-            print('uundersco1RE => ',  created)
-            raise serializers.ValidationError({'error': 'This file has already been uploaded'})
-        
+            # Check for existing file based on specific fields (e.g., name, size, extension)
+        file_exists = File.objects.filter(
+            name=validated_data['name'],
+            size=validated_data['size'],
+            extension=validated_data['extension']
+        ).exists()
 
-        return file_instance
+        if file_exists:
+            raise serializers.ValidationError({'error': 'This file has already been uploaded.'})
+
+        # Create the new file instance if it doesn’t exist
+        return super().create(validated_data)
 
     
         

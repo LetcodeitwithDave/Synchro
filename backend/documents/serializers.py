@@ -79,8 +79,15 @@ class FileSerializer(serializers.ModelSerializer):
             
             validated_data['category'] = get_category_by_extension(file_extension)
             print('category in the fucntion => ', get_category_by_extension(file_extension))
+        
+        file_instance, created = File.objects.get_or_create(validated_data)
+        
+        if not created:
+            print('uundersco1RE => ',  created)
+            raise serializers.ValidationError({'error': 'This file has already been uploaded'})
+        
 
-        return super().create(validated_data)
+        return file_instance
 
     
         

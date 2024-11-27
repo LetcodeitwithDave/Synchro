@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .serializers import DocumentSerializer , SearchSerializer ,FileSerializer
-from .models import Document, Category, Tag
+from .models import Document, CategoryClass, Tag
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.decorators import api_view, permission_classes, parser_classes
 from rest_framework.permissions import IsAuthenticated
@@ -83,12 +83,15 @@ def document_type(request):
         return Response({'data' : serializer.data}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
+@parser_classes([MultiPartParser, FormParser])
 def upload_file(request):
     
     if 'file' not in request.FILES:
+        print('not file here')
         return Response({'error': 'No file provided'}, status=status.HTTP_400_BAD_REQUEST)
     
     upload_file =  request.FILES['file']
+   
     file_name, file_extension = os.path.splitext(upload_file.name)
 
     data = {
@@ -103,4 +106,5 @@ def upload_file(request):
     if serializer.is_valid():
         serializer.save()
         return Response({'data': serializer.data}, status=status.HTTP_201_CREATED)
+    print("Serializer Errors:", serializer.errors)  # Debug error details
     return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)

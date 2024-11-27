@@ -7,7 +7,7 @@ function SearchInput() {
   const SearchLogic = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/document/search?title=${input}`,
+        `http://localhost:8000/api/documents/search?title=${input}`,
         {
           method: "GET",
         }

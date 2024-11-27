@@ -1,12 +1,17 @@
-from  .models import Document, Tag, Category, File
+from  .models import Document, Tag, Category, CategoryClass, File
 import os
 from rest_framework import serializers
-from documents.utils import get_extension_by_category
+from documents.utils.get_extension_by_category import get_category_by_extension
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model =  Tag
         fields =  '__all__'
+
+class CategoryClassSerializer(serializers.ModelSerializer):
+    class Meta:
+        model =  CategoryClass
+        fields =  ['name'] 
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -55,22 +60,27 @@ class SearchSerializer(serializers.ModelSerializer):
 
 
 class FileSerializer(serializers.ModelSerializer):
+
+    category = serializers.CharField(required=False)
+
+
     class Meta:
         model =  File
-        fields = '__all__'
+        fields = ['name', 'size', 'extension', 'category' , 'file']
+        read_only_fields = ['category']
 
     def create(self, validated_data):
+        print('validated data => ', validated_data)
+        file_extension = validated_data.get('extension')
 
-        file_extension = validated_data['extension']
-        category = get_extension_by_category(file_extension)
+        # Use provided category or determine it programmatically
+        if 'category' not in validated_data or not validated_data['category']:
+            file_extension = validated_data.get('extension')
+            
+            validated_data['category'] = get_category_by_extension(file_extension)
+            print('category in the fucntion => ', get_category_by_extension(file_extension))
 
-        category_instance, _ = File.objects.get_or_create(name=category)
+        return super().create(validated_data)
 
-        create_file = File.objects.create(
-            category=category_instance, 
-            **validated_data
-            )
-
-        return create_file
-
+    
         

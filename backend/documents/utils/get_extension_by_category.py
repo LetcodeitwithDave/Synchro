@@ -12,7 +12,6 @@ def get_category_by_extension(file_extension):
     print('file in funciotn => ', file_extension)
     """Detrmine the category of a file based on its extension."""
     for category_name, extensions in FILE_CATEGORIES.items():
-        print('extension => ', extensions)
         if file_extension.lower() in extensions:
 
             print(category_name)

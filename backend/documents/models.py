@@ -5,7 +5,14 @@ from account.models import CustomUser
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100, unique=True, blank=True, null=True)
+
+    def __str__(self) :
+        return self.name 
+    
+
+class CategoryClass(models.Model):
+    name = models.CharField(max_length=100, unique=True, blank=True, null=True)
 
     def __str__(self) :
         return self.name 
@@ -26,7 +33,7 @@ class Document(models.Model):
     uploader = models.ForeignKey(CustomUser, null=True , on_delete=models.CASCADE, related_name='documents')
     last_updated = models.DateTimeField( null=True , auto_now_add=True)
     upload_date = models.DateTimeField( null=True, auto_now_add=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True ,related_name = 'category')
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True ,related_name = 'categoryies')
     
     def get_absolute_url(self):
         """ Return the full url for the file """
@@ -38,13 +45,13 @@ class File(models.Model):
     name = models.CharField(max_length=255)
     size = models.PositiveBigIntegerField()
     extension = models.CharField(max_length=10)  # File extension (e.g., .pdf)
-    category = models.ForeignKey( Category, on_delete=models.CASCADE , related_name='files')  # Category (documents, images, etc.)
+    category = models.ForeignKey( CategoryClass, on_delete=models.CASCADE , related_name='category', blank=True, null=True)  # Category (documents, images, etc.)
     file = models.FileField(upload_to="uploads/")  # File storage path
     uploaded_at = models.DateTimeField(auto_now_add=True)
     
 
     def __str__(self) :
-        return self.title
+        return self.name
 
 
 

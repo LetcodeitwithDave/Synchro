@@ -91,11 +91,12 @@ def upload_file(request):
         return Response({'error': 'No file provided'}, status=status.HTTP_400_BAD_REQUEST)
     
     upload_file =  request.FILES['file']
+    
    
     file_name, file_extension = os.path.splitext(upload_file.name)
 
     data = {
-        'name': file_name,
+        'name': upload_file.name,
         'size': upload_file.size,
         'extension': file_extension,
         'file': upload_file,

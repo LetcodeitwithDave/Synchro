@@ -88,7 +88,7 @@ class FileSerializer(serializers.ModelSerializer):
         ).exists()
 
         if file_exists:
-            raise serializers.ValidationError({'error': 'This file has already been uploaded.'})
+            raise serializers.ValidationError('This file has already been uploaded.')
 
         # Create the new file instance if it doesn’t exist
         return super().create(validated_data)

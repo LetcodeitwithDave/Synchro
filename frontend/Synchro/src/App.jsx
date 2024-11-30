@@ -5,7 +5,6 @@ import {
   Signup,
   FileUploadAndList,
   Dashboard,
-  Upload,
   Documents,
 } from "./pages";
 import { Sidebar, Navbar } from "./components";

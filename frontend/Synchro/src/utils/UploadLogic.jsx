@@ -1,43 +1,32 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const UploadLogic = async (uploadDetails, selectedFile, navigate) => {
-  // Ensure all state is up-to-date before uploading
-  console.log("Upload details: ", uploadDetails);
-  console.log("Selected file: ", selectedFile);
+export const UploadLogic = async (selectedFile, navigate) => {
+  console.log("Selected file in uploadLogic: ", selectedFile);
 
-  const uploadData = new FormData(); // Create a new FormData object
+  const uploadData = new FormData();
 
-  // Append text and file data to the FormData object
-  uploadData.append("title", uploadDetails.title);
-  uploadData.append("description", uploadDetails.description);
-  uploadData.append("tags", uploadDetails.tags);
-  uploadData.append("category", uploadDetails.category);
+  // Append file data to the FormData object
+
   uploadData.append("file", selectedFile);
-  console.log("uploadded data ", uploadData);
 
   try {
-    const response = await fetch(
-      "http://localhost:8000/api/dashboard/dashboard_summary/",
-      {
-        method: "POST",
-        body: uploadData, // Send FormData directly
-        // Content-Type header should not be manually set as the browser will handle it
-      }
-    );
+    const response = await fetch("http://localhost:8000/api/documents/upload", {
+      method: "POST",
+      body: uploadData, // Send FormData directly
+    });
 
     if (response.ok) {
       toast.success("File Upload Successfully");
-
       navigate("/home");
-      console.log("page navigation -> ", navigate);
     } else {
       const errorData = await response.json();
+      toast.error(`${errorData}`);
       console.error("Upload failed: ", errorData);
 
-      for (const [key, value] of Object.entries(errorData)) {
-        toast.error(`${key}: ${value.join(", ")}`);
-      }
+      // for (const [key, value] of Object.entries(errorData)) {
+      //   toast.error(`${key}: ${value.join(", ")}`);
+      // }
     }
   } catch (error) {
     console.error("Error uploading file: ", error);

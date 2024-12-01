@@ -62,12 +62,25 @@ class SearchSerializer(serializers.ModelSerializer):
 class FileSerializer(serializers.ModelSerializer):
 
     category = serializers.CharField(required=False)
+    name = serializers.SerializerMethodField()
 
 
     class Meta:
         model =  File
-        fields = ['name', 'size', 'extension', 'category' , 'file']
-        read_only_fields = ['category']
+        fields = ['file_name', 'name',  'size', 'extension', 'category' , 'file']
+        read_only_fields = ['category', 'name']
+    
+    def get_name (self, obj):
+
+
+        file_path = obj.file.name
+        full_name = os.path.basename(file_path)
+
+        name,_ =  os.path.splitext(full_name)
+        
+        print('last file  ', name)
+
+        return name
 
     def create(self, validated_data):
         print('validated data => ', validated_data)
@@ -82,7 +95,7 @@ class FileSerializer(serializers.ModelSerializer):
         
             # Check for existing file based on specific fields (e.g., name, size, extension)
         file_exists = File.objects.filter(
-            name=validated_data['name'],
+            file_name=validated_data['file_name'],
             size=validated_data['size'],
             extension=validated_data['extension']
         ).exists()

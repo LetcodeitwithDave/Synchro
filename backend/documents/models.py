@@ -42,7 +42,7 @@ class Document(models.Model):
 
 
 class File(models.Model):
-    name = models.CharField(max_length=255)
+    file_name = models.CharField(max_length=255)
     size = models.PositiveBigIntegerField()
     extension = models.CharField(max_length=10)  # File extension (e.g., .pdf)
     category = models.ForeignKey( CategoryClass, on_delete=models.CASCADE , related_name='category', blank=True, null=True)  # Category (documents, images, etc.)
@@ -51,7 +51,7 @@ class File(models.Model):
     
 
     def __str__(self) :
-        return self.name
+        return self.file_name
 
 
 

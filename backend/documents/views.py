@@ -96,7 +96,7 @@ def upload_file(request):
     file_name, file_extension = os.path.splitext(upload_file.name)
 
     data = {
-        'file_name':file_name ,
+        'file_name':upload_file.name ,
         'size': upload_file.size,
         'extension': file_extension,
         'file': upload_file,

@@ -63,12 +63,13 @@ class FileSerializer(serializers.ModelSerializer):
 
     category = serializers.CharField(required=False)
     name = serializers.SerializerMethodField()
+    uploaded_at = serializers.DateTimeField(format="%I:%M%p %d %b", read_only=True)
 
 
     class Meta:
         model =  File
         fields = ['file_name', 'name',  'size', 'extension', 'category' , 'file' , 'uploaded_at']
-        read_only_fields = ['category', 'name']
+        read_only_fields = ['category', 'name', 'uploaded_at']
     
     def get_name (self, obj):
 

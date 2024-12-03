@@ -67,7 +67,7 @@ class FileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model =  File
-        fields = ['file_name', 'name',  'size', 'extension', 'category' , 'file']
+        fields = ['file_name', 'name',  'size', 'extension', 'category' , 'file' , 'uploaded_at']
         read_only_fields = ['category', 'name']
     
     def get_name (self, obj):

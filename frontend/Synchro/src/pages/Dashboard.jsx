@@ -3,42 +3,36 @@ import SearchInput from "../components/SearchInput";
 import DownloadButton from "../components/DownloadButton";
 import ViewButton from "../components/ViewButton";
 import Sidebar from "../components/Sidebar";
-import { UploadButton } from "../components/uploadButton";
-import { Trash, EllipsisVertical } from "lucide-react";
+// import { UploadButton } from "../components/uploadButton";
+// import { Trash, EllipsisVertical } from "lucide-react";
 import { RecentFileUpload, ChartandDashboardcard } from "../components";
 
 export default function Dashboard() {
-  const [files, setFiles] = useState([]);
-  const recentUpload = [
-    { fileName: "Cvdesigner.docx", time: " 4:47am, 10 Nov" },
-    { fileName: "Cvdesigner.docx", time: " 4:47am, 10 Nov" },
-    { fileName: "Cvdesigner.docx", time: " 4:47am, 10 Nov" },
-    { fileName: "Cvdesigner.docx", time: " 4:47am, 10 Nov" },
-    { fileName: "Cvdesigner.docx", time: " 4:47am, 10 Nov" },
-  ];
+  const [recentUpload, setRecentUpload] = useState([]);
 
-  // const FetchFiles = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "http://localhost:8000/api/dashboard/dashboard_summary/",
-  //       { method: "GET" }
-  //     );
+  const FetchFiles = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8000/api/dashboard/dashboard_summary/",
+        { method: "GET" }
+      );
 
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       setFiles(data);
+      if (response.ok) {
+        const data = await response.json();
+        setRecentUpload(data);
+        console.log(" response data => ", data);
 
-  //       // console.log("files -> ", files);
-  //       // console.log("response data ", data);
-  //     }
-  //   } catch (error) {
-  //     console.log("something went wrong");
-  //   }
-  // };
+        // console.log("files -> ", files);
+        // console.log("response data ", data);
+      }
+    } catch (error) {
+      console.log("something went wrong");
+    }
+  };
 
-  // useEffect(() => {
-  //   FetchFiles();
-  // }, []);
+  useEffect(() => {
+    FetchFiles();
+  }, []);
 
   return (
     <div>

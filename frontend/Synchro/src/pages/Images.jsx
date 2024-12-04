@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 // import NavContent from "../components/NavContent";
+import { EllipsisVertical } from "lucide-react";
 
 const Images = () => {
+  const truncateText = (text, maxLength) => {
+    if (text.length > maxLength) {
+      return text.slice(0, maxLength) + "...";
+    }
+    return text;
+  };
+
   const [images, setImages] = useState([]);
   const FetchFiles = async () => {
     try {
@@ -40,9 +48,41 @@ const Images = () => {
 
         <div className=" grid grid-cols-4  mt-16 gap-10 w-full">
           {images.map((image, index) => (
-            <div className=" bg-white h-44 w-60 rounded-xl shadow-md  ">
-              {image.name}{" "}
-            </div>
+            <button
+              className=" bg-white flex flex-row justify-between h-44 w-60 rounded-2xl p-6 shadow-md  "
+              key={index}
+            >
+              <div>
+                <div className=" flex flex-col  gap-y-4">
+                  <img
+                    src={image.file}
+                    alt={image.name}
+                    className="h-16 w-16 rounded-full object-cover"
+                  />
+                  {/* {image.name} */}
+
+                  <div className=" flex flex-col gap-2 ">
+                    <h1 className=" font-rubikSemiBold text-gray-700 text-md ">
+                      {truncateText(image.name, 9)}
+                      {image.extension}
+                      {/* {item.file_name} */}
+                    </h1>
+
+                    <h1 className=" font-rubikRegalar text-gray-700  text-sm">
+                      {image.uploaded_at}
+                    </h1>
+                  </div>
+                </div>
+              </div>
+
+              <div className=" flex flex-col gap-2 ">
+                <EllipsisVertical className="  flex text-gray-600 fill-current items-center  w-8 h-8" />
+
+                <h1 className=" font-rubikRegalar text-gray-700  text-sm">
+                  2 mb
+                </h1>
+              </div>
+            </button>
           ))}
         </div>
 

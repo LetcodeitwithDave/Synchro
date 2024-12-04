@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .serializers import DocumentSerializer , SearchSerializer ,FileSerializer
-from .models import Document, CategoryClass, Tag
+from .models import Document, CategoryClass, File
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.decorators import api_view, permission_classes, parser_classes
 from rest_framework.permissions import IsAuthenticated
@@ -62,23 +62,24 @@ def search_document(request):
 
     
 @api_view(['GET'])
-def document_type(request):
-    file_extension =  request.query_params.get('extension', None)
+def document_type(request, category_type):
+    file_category =  request.query_params.get('category', None) #e.g image
+    print(' file category => ', file_category) 
     
-    if file_extension:
-        print('file extension -> ', file_extension[0])
-        if not file_extension[0] == '.':
-            file_extension = f".{file_extension}" #add (.) to extension
+    if file_category:
+        
+        
+        category_type = CategoryClass.objects.get(name=file_category)
+        category_file = category_type.category.all()
+        serializer =  FileSerializer(category_file, many=True, context={'request': request})
+        
 
-
-        document = Document.objects.filter(file__iendswith=file_extension) #file__iendswith --> case insensitive
-        serializer = DocumentSerializer(document, many=True, context={'request': request})
-        return Response({'data': serializer.data}, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
     else:
         print('request => ', request)
-        document  = Document.objects.all()
-        serializer =  DocumentSerializer(document, many=True, context={'request': request})
+        file_instance  = File.objects.all()
+        serializer =  FileSerializer(file_instance, many=True, context={'request': request})
 
         return Response({'data' : serializer.data}, status=status.HTTP_200_OK)
 

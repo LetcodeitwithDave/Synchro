@@ -7,6 +7,7 @@ import {
   Dashboard,
   Documents,
   Images,
+  Others,
 } from "./pages";
 import { Sidebar, Navbar } from "./components";
 
@@ -37,6 +38,7 @@ function App() {
                 {/* <Route element={<Upload />} path="/upload" /> */}
                 <Route element={<Documents />} path="/documents" />
                 <Route element={<Images />} path="/images" />
+                <Route element={<Others />} path="/others" />
               </Routes>
             </div>
           </div>

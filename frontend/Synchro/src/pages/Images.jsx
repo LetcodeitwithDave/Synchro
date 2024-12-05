@@ -61,7 +61,7 @@ const Images = () => {
                   />
                   {/* {image.name} */}
 
-                  <div className=" flex flex-col gap-2 ">
+                  <div className=" flex flex-col gap-2  items-start">
                     <h1 className=" font-rubikSemiBold text-gray-700 text-md ">
                       {truncateText(image.name, 9)}
                       {image.extension}
